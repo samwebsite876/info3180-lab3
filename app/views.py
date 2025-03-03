@@ -2,6 +2,7 @@ from app import app
 from flask import render_template, request, redirect, url_for, flash
 from app import mail
 from app.forms import ContactForm
+from flask_mail import Message
 
 
 ###
@@ -19,29 +20,31 @@ def about():
     """Render the website's about page."""
     return render_template('about.html', name="Mary Jane")
 
-@app.route('/contact', methods=['GET', 'POST'])
+@app.route("/contact", methods=["GET", "POST"])
 def contact():
-    form = ContactForm()
-    if form.validate_on_submit():
-        # Create the email message
+    form = ContactForm()  
+
+    if form.validate_on_submit():  
+        name = form.name.data
+        email = form.email.data
+        subject = form.subject.data
+        message = form.message.data
+
         msg = Message(
-            subject=form.subject.data,  # Use the subject from the form
-            sender=(" Samantha Samuels", "ssamuels327@gmail.com"),  # Replace with your sender details
-            recipients=["to@example.com"]  # Replace with the recipient's email
+            subject=subject,
+            sender=(name, email), 
+            recipients=["ssamuels327@gmail.com"],  
+            body=f"From: {name} <{email}>\n\n{message}"
         )
-        msg.body = f"""
-        Name: {form.name.data}
-        Email: {form.email.data}
-        Message: {form.message.data}
-        """
-        # Send the email
-        mail.send(msg)
-        # Flash a success message
-        flash('Your message has been sent successfully!', 'success')
-        # Redirect to the home page
-        return redirect(url_for('home'))
-    # If the form is not validated, re-render the contact form
-    return render_template('contact.html', form=form)
+
+        try:
+            mail.send(msg)  
+            flash("Your message has been sent successfully!", "success")
+            return redirect(url_for("home"))  
+        except Exception as e:
+            flash(f"Error sending email: {str(e)}", "danger")
+
+    return render_template("contact.html",form=form)
 
 
 ###

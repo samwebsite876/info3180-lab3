@@ -22,10 +22,9 @@
     color: #555;
 }
 
-/* Style for required fields */
 .contact-form label:after {
     content: " *";
-    color: #dc3545; /* Red color for the asterisk */
+    color: #dc3545; 
 }
 
 .contact-form input[type="text"],
@@ -60,7 +59,6 @@
     background-color: #0056b3;
 }
 
-/* Error message styling */
 .contact-form .error {
     color: #dc3545;
     font-size: 14px;
@@ -68,7 +66,6 @@
     margin-bottom: 10px;
 }
 
-/* Flash message styling */
 .flashes {
     list-style-type: none;
     padding: 0;

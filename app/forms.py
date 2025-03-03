@@ -3,8 +3,8 @@ from wtforms import StringField, TextAreaField, SubmitField
 from wtforms.validators import DataRequired, Email
 
 class ContactForm(FlaskForm):
-    name = StringField('Name (Required)', validators=[DataRequired()])
-    email = StringField('Email (Required)', validators=[DataRequired(), Email()])
-    subject = StringField('Subject (Required)', validators=[DataRequired()])
-    message = TextAreaField('Message (Required)', validators=[DataRequired()])
+    name = StringField('Name ', validators=[DataRequired()])
+    email = StringField('Email ', validators=[DataRequired(), Email()])
+    subject = StringField('Subject ', validators=[DataRequired()])
+    message = TextAreaField('Message ', validators=[DataRequired()])
     submit = SubmitField('Send')
