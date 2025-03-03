@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block main %}
+<div class="contact-form">
+    <h1>Contact Form</h1>
+    <form method="POST">
+        {{ form.csrf_token }}
+        <div>
+            {{ form.name.label }}
+            {{ form.name(size=20) }}
+            {% if form.name.errors %}
+                <div class="error">{{ form.name.errors[0] }}</div>
+            {% endif %}
+        </div>
+        <div>
+            {{ form.email.label }}
+            {{ form.email(size=20) }}
+            {% if form.email.errors %}
+                <div class="error">{{ form.email.errors[0] }}</div>
+            {% endif %}
+        </div>
+        <div>
+            {{ form.subject.label }}
+            {{ form.subject(size=20) }}
+            {% if form.subject.errors %}
+                <div class="error">{{ form.subject.errors[0] }}</div>
+            {% endif %}
+        </div>
+        <div>
+            {{ form.message.label }}
+            {{ form.message(rows=4, cols=20) }}
+            {% if form.message.errors %}
+                <div class="error">{{ form.message.errors[0] }}</div>
+            {% endif %}
+        </div>
+        <div>
+            {{ form.submit() }}
+        </div>
+    </form>
+</div>
+{% endblock %}
